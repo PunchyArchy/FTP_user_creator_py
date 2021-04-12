@@ -17,12 +17,12 @@ def execute_command(command):
     os.system(command)
 
 
-def launch(username, sudo_pass, subfolder='files'):
+def launch(username, userpass, sudo_pass, subfolder='files'):
     """ Основной движок """
     # Создать пользователя
     create_user(username, sudo_pass)
     # Создать ему пароль
-    set_user_pas(username, sudo_pass)
+    set_user_pas(username, userpass, sudo_pass)
     # Создать директорию пользователя
     create_user_folder(username, sudo_pass, subfolder)
     # Ограничить его директорию
@@ -36,8 +36,8 @@ def create_user(username, sudo_pass):
     get_sudo_execute(command, sudo_pass)
 
 
-def set_user_pas(username, sudo_pass):
-    command = "passwd {}".format(username)
+def set_user_pas(username, userpass, sudo_pass):
+    command = "usermod --password {} {}".format(userpass, username)
     get_sudo_execute(command, sudo_pass)
 
 
